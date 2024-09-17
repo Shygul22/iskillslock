@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Management System</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333333;
+    text-align: center;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+    background-color: #0081A7;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #006f8e;
+}
+
+#result {
+    padding: 10px;
+    background-color: #e1e1e1;
+    border-radius: 5px;
+    color: #333333;
+}
+
+    </style>
+</head>
+<body>
+   
+    <div class="container">
+        
+        <button id="fetchDataButton">Fetch Data</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbyazoZETSilOpuu_fErtt4Sbo1QHFz0tl6BL3WqN-dbguteVRDTvxP4zVoPdzppJt5e/exec';
+
+        document.getElementById('fetchDataButton').addEventListener('click', async () => {
+            try {
+                const response = await fetch(webAppUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<p>Error fetching data: ${error.message}</p>`;
+            }
+        });
+    </script>
+
+</body>
+</html>
